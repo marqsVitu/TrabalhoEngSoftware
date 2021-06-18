@@ -67,6 +67,32 @@ app.get('/product/:id', (req, res, next) => {
         }
     });
 });
+app.get('/books/:id/:param', (req, res, next) => {
+    if(req.params.param == 0){
+        inventory.RemoverProduto({id: req.params.id}, (err, product) => {
+       
+            if (err){
+                console.error(err);
+                res.status(500).send({ error: 'Ocorreu um erro'});
+            }else{
+                res.json(product);
+            }
+        });
+    }else{
+
+        inventory.AdicionarProduto({id: req.params.id}, (err, product) => {
+       
+            if (err){
+                console.error(err);
+                res.status(500).send({ error: 'Ocorreu um erro'});
+            }else{
+                res.json(product);
+            }
+        });
+    }
+    
+   
+});
 
 /**
  * Inicia o router
